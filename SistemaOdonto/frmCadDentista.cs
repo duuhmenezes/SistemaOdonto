@@ -115,5 +115,10 @@ namespace SistemaOdonto
             frmConDentista frm = new frmConDentista();
             frm.ShowDialog();
         }
+
+        private void frmCadDentista_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

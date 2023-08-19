@@ -266,6 +266,7 @@
             Name = "frmCadDentista";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cadastro de Dentistas";
+            Load += frmCadDentista_Load;
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ResumeLayout(false);

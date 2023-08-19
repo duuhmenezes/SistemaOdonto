@@ -84,6 +84,7 @@
             btnDeletar.Size = new Size(73, 64);
             btnDeletar.TabIndex = 36;
             btnDeletar.UseVisualStyleBackColor = true;
+            btnDeletar.Click += btnDeletar_Click;
             // 
             // btnEditar
             // 
@@ -96,6 +97,7 @@
             btnEditar.Size = new Size(73, 64);
             btnEditar.TabIndex = 35;
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // panel1
             // 
@@ -215,7 +217,7 @@
             lblCodigo.TabIndex = 21;
             lblCodigo.Text = "Código:";
             // 
-            // frmConDentista
+            // frmEditarDentista
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -239,7 +241,7 @@
             Controls.Add(lblCodigo);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
-            Name = "frmConDentista";
+            Name = "frmEditarDentista";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmConDentista";
             statusStrip1.ResumeLayout(false);

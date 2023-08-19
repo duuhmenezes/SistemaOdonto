@@ -70,7 +70,7 @@ namespace SistemaOdonto
             dg.RowsDefaultCellStyle.BackColor = Color.Bisque;
             dg.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
             dg.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dg.DefaultCellStyle.SelectionBackColor = Color.Chocolate;
+            dg.DefaultCellStyle.SelectionBackColor = Color.DarkCyan;
             dg.DefaultCellStyle.SelectionForeColor = Color.White;
             dg.CellBorderStyle = DataGridViewCellBorderStyle.None;
 
@@ -86,8 +86,42 @@ namespace SistemaOdonto
 
             dg.Columns.Add("Telefone", "Telefone");
             dg.Columns.Add("Celular", "Celular");
+
+            dg.CellContentClick += new DataGridViewCellEventHandler(this.tb_click);
             
 
+        }
+
+        private void tb_click(object? sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dg = sender as DataGridView;
+            try
+            {
+                if(e.ColumnIndex == 1 && e.RowIndex != -1)
+                {
+                    var id = dg.Rows[e.RowIndex].Cells[0].Value; // passando para a variavel id o valor do campo 0 que é o id.
+                    Dentista obj = service.Buscar(Convert.ToInt32(id));
+                    
+                    var form = new frmEditarDentista(obj);
+                    form.ShowDialog();
+                    
+                    if(form.status == "apagado")   // ex. tem + de 1 usuario logado no sistema, ai caso o registro não exista mais ele faz essa checagem.
+                    {
+                        this.Close();
+                        frmConDentista frm = new frmConDentista();
+                        frm.ShowDialog();
+                    } if(form.status == "editado")
+                    {
+                        dg.Rows.RemoveAt(e.RowIndex);
+                        GerarLinha(dg, obj); // se o registro foi editado a linha some e é carreganovamente com as edições.
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Erro ao selecionar" + ex.Message);
+            }
         }
 
         private void GerarLinha(DataGridView data, Dentista dado)
@@ -95,8 +129,8 @@ namespace SistemaOdonto
             int linhaAtual = data.Rows.Add(); 
             data.Rows[linhaAtual].Cells[0].Value = dado.Id;
             data.Rows[linhaAtual].Cells[1].Value = dado.Nome;
-            data.Rows[linhaAtual].Cells[2].Value = dado.Telefone;
-            data.Rows[linhaAtual].Cells[3].Value = dado.Celular;
+            data.Rows[linhaAtual].Cells[2].Value = dado.Telefone.ToString("(00) 0000-0000");
+            data.Rows[linhaAtual].Cells[3].Value = dado.Celular.ToString("(00) 00000-0000");
             //data.Rows[linhaAtual].Cells[4].Value = dado.Email;
             //data.Rows[linhaAtual].Cells[5].Value = dado.CRO;
 
